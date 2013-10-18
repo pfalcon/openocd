@@ -470,6 +470,10 @@ AC_ARG_ENABLE([buspirate],
   AS_HELP_STRING([--enable-buspirate], [Enable building support for the Buspirate]),
   [build_buspirate=$enableval], [build_buspirate=no])
 
+AC_ARG_ENABLE([simplejtag],
+  AS_HELP_STRING([--enable-simplejtag], [Enable building support for the simplejtag generic protocol]),
+  [build_simplejtag=$enableval], [build_simplejtag=no])
+
 AC_ARG_ENABLE([sysfsgpio],
   AS_HELP_STRING([--enable-sysfsgpio], [Enable building support for programming driven via sysfs gpios.]),
   [build_sysfsgpio=$enableval], [build_sysfsgpio=no])
@@ -568,6 +572,10 @@ case $host in
 
     if test x$build_buspirate = xyes; then
       AC_MSG_ERROR([buspirate currently not supported by MinGW32 hosts])
+    fi
+
+    if test x$build_simplejtag = xyes; then
+      AC_MSG_ERROR([simplejtag currently not supported by MinGW32 hosts])
     fi
 
     CFLAGS="$CFLAGS -D__USE_MINGW_ANSI_STDIO"
@@ -749,6 +757,13 @@ if test $build_buspirate = yes; then
   AC_DEFINE([BUILD_BUSPIRATE], [1], [1 if you want the Buspirate JTAG driver.])
 else
   AC_DEFINE([BUILD_BUSPIRATE], [0], [0 if you don't want the Buspirate JTAG driver.])
+fi
+
+if test $build_simplejtag = yes; then
+  build_bitbang=yes
+  AC_DEFINE([BUILD_SIMPLEJTAG], [1], [1 if you want the simplejtag generic protocol driver.])
+else
+  AC_DEFINE([BUILD_SIMPLEJTAG], [0], [0 if you don't want the simplejtag generic protocol driver.])
 fi
 
 if test "$use_internal_jimtcl" = yes; then
@@ -1146,6 +1161,7 @@ AM_CONDITIONAL([OPENJTAG], [test $build_openjtag_ftd2xx = yes -o $build_openjtag
 AM_CONDITIONAL([OOCD_TRACE], [test $build_oocd_trace = yes])
 AM_CONDITIONAL([REMOTE_BITBANG], [test $build_remote_bitbang = yes])
 AM_CONDITIONAL([BUSPIRATE], [test $build_buspirate = yes])
+AM_CONDITIONAL([SIMPLEJTAG], [test $build_simplejtag = yes])
 AM_CONDITIONAL([SYSFSGPIO], [test $build_sysfsgpio = yes])
 AM_CONDITIONAL([USE_LIBUSB0], [test $use_libusb0 = yes])
 AM_CONDITIONAL([USE_LIBUSB1], [test $use_libusb1 = yes])

@@ -96,7 +96,10 @@ if ARMJTAGEW
 DRIVERFILES += arm-jtag-ew.c
 endif
 if BUSPIRATE
-DRIVERFILES += buspirate.c
+DRIVERFILES += buspirate.c serial.c
+endif
+if SIMPLEJTAG
+DRIVERFILES += simplejtag_l0.c serial.c
 endif
 if REMOTE_BITBANG
 DRIVERFILES += remote_bitbang.c
