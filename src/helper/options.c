@@ -189,7 +189,7 @@ int parse_cmdline_args(struct command_context *cmd_ctx, int argc, char *argv[])
 
 	if (help_flag) {
 		LOG_OUTPUT("Open On-Chip Debugger\nLicensed under GNU GPL v2\n");
-		LOG_OUTPUT("--help       | -h\tdisplay this help\n");
+		LOG_OUTPUT("--help       | -h\tdisplay this help (use -c help for more)\n");
 		LOG_OUTPUT("--version    | -v\tdisplay OpenOCD version\n");
 		LOG_OUTPUT("--file       | -f\tuse configuration file <name>\n");
 		LOG_OUTPUT("--search     | -s\tdir to search for config files and scripts\n");
